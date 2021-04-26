@@ -1,0 +1,42 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <section class="text-center">
+        <div class="container" style="padding-top: 90px">
+            <h2>Add student(s) to course</h2>
+        </div>
+    </section>
+
+    <table>
+        <div class="col-5" style="padding-left: 550px;">
+                <form action="/admin/students-to-course" method="POST">
+                    <div class="form-group">
+                        <label>Students</label>
+                        <select name="students"  multiple="multiple" class="form-control" style="width: 450px">
+                            <option
+                                    th:each="student : ${students}"
+                                    th:value="${student.getIndex()}"
+                                    th:text="${student.getFullName()}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Courses</label>
+                        <select name="courseId" id="courseId"  class="form-control" style="width: 450px">
+                            <option
+                                    th:each="course : ${courses}"
+                                    th:value="${course.getCode()}"
+                                    th:text="${course.getName()}">
+                            </option>
+                        </select>
+                    </div>
+                    <div style="margin: 0 auto; width: 450px; text-align: center;">
+                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                    <a class="btn btn-light" href="javascript:history.back()">Go Back</a>
+                    </div>
+
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+            </form>
+        </div>
+    </table>
+</div>
+

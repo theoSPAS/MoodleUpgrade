@@ -1,0 +1,114 @@
+<div xmlns:th="http://www.thymeleaf.org" th:align="center">
+    <section class="text-center">
+        <div class="container">
+            <h2>Projects</h2>
+        </div>
+    </section>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <div class="container mb-4">
+        <div th:if="${hasError}">
+            <div th:text="${error}" class="error"></div>
+        </div>
+        <div class="row" th:if="${projects != null}">
+            <div class="col-12" th:if="${projects.size()>0}">
+                <div class="table table-hover">
+                    <div class="row">
+                    </div>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">Project title</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="project : ${projects}" class="product">
+                            <td>
+                                <a th:href="@{'/projects/info/{id}'(id=${project.getId()})}"
+                                   th:text="${project.getTitle()}"></a>
+                            </td>
+                            <td>
+                                <th:block sec:authorize="hasRole('ROLE_STUDENT')">
+                                    <form th:action="@{'/projects/{id}' (id=${project.getId()})}"
+                                          th:method="post">
+                                        <button id="submit" type="submit" class="btn btn-primary">Choose project
+                                        </button>
+                                    </form>
+                                </th:block>
+                            </td>
+                            <td class="text-right">
+                                <th:block sec:authorize="hasRole('ROLE_PROFESSOR')">
+                                    <form th:action="@{'/projects/delete/{id}' (id=${project.getId()})}"
+                                          th:method="get">
+                                        <button type="submit"
+                                                class="btn btn-sm btn-light delete-balloon">
+                                            <i class="fa fa-trash">Delete</i>
+                                        </button>
+                                    </form>
+                                </th:block>
+
+                                <th:block sec:authorize="hasRole('ROLE_PROFESSOR')">
+                                    <a th:href="@{'/projects/edit/{id}' (id=${project.getId()})}"
+                                       class="btn btn-sm btn-info edit-balloon">
+                                        <i class="fa fa-trash">Edit</i>
+                                    </a>
+                                </th:block>
+                            </td>
+                        </tr>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="container">
+                    <th:block sec:authorize="hasAnyRole('ROLE_PROFESSOR','ROLE_STUDENT')">
+                        <a href="/projects/add" class="btn btn-warning">Add new project</a>
+                    </th:block>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row" th:if="${project != null}">
+            <tr>
+                <th><h3>Info for project: </h3></th>
+
+                </br>
+                &nbsp;&nbsp;<th><h2 th:text="${project.getTitle()}"></h2></th>
+
+                </br>
+            </tr>
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">Project description</th>
+                            <th scope="col">Project deadline</th>
+                            <th scope="col">Professor</th>
+                            <th scope="col">Course</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="product">
+                            <td th:text="${project.getDescription()}"></td>
+                            <td th:text="${project.getDeadline()}"></td>
+                            <td th:text="${project.getProfessor().getFullName()}"></td>
+                            <td th:text="${project.getCourse().getName()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+            </div>
+        </div>
+    </div>
+</div>

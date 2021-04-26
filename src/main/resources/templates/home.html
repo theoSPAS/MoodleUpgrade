@@ -1,0 +1,35 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <section class="text-center">
+        <div class="container">
+            <h2>Moodle Plus</h2>
+        </div>
+    </section>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <div>
+        <div th:if="${hasError}">
+            <div th:text="${error}" class="text-danger"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <th:block>
+            <a href="/projects" class="btn btn-warning">Choose project</a>
+        </th:block>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    </div>
+
+    <br/>
+    <br/>
+    <div class="container">
+        <th:block>
+        <a href="https://courses.finki.ukim.mk/" class="btn btn-success">Courses finki</a>
+        </th:block>
+    </div>
+</div>

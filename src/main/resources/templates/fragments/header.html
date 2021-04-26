@@ -1,0 +1,72 @@
+<header xmlns:th="http://www.thymeleaf.org">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+        <a class="navbar-brand" href="#">Moodle plus</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/courses">Courses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/professors">Professors</a>
+                </li>
+                <li class="nav-item">
+                    <th:block sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_PROFESSOR')">
+                        <a class="nav-link" href="/students">Students</a>
+                    </th:block>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/projects">Projects</a>
+                </li>
+
+            </ul>
+            <ul class="navbar-nav mr-auto justify-content-center">
+                <li class="nav-item">
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" href="/admin">Admin</a>
+                    </th:block>
+                </li>
+                <li class="nav-item">
+                    <th:block sec:authorize="hasRole('ROLE_STUDENT')">
+                        <a class="nav-link" href="/projects/user">My projects</a>
+                    </th:block>
+                </li>
+                <li class="nav-item">
+                    <th:block sec:authorize="hasRole('ROLE_PROFESSOR')">
+                        <a class="nav-link" href="/files/all">Uploaded files</a>
+                    </th:block>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav mr-auto navbar-right">
+                <li class="nav-item">
+                    <a sec:authorize="!isAuthenticated()" href="/register" class="btn btn-link">Sign Up</a>
+
+                </li>
+                <li class="nav-item">
+                    <a sec:authorize="!isAuthenticated()" href="/login" class="btn btn-link">Login</a>
+
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <th:block th:if="${#request.getRemoteUser()!=null}"
+                                  th:text="${#request.getRemoteUser()}"/>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a sec:authorize="isAuthenticated()" href="/logout" class="btn btn-link">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+

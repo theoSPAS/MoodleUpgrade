@@ -1,0 +1,93 @@
+<div xmlns:th="http://www.thymeleaf.org" th:align="center">
+    <section class="text-center">
+        <div class="container" style="padding-top: 40px">
+            <h2>My projects</h2>
+        </div>
+    </section>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-12">
+                <h4>Not submitted projects</h4>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">Project title</th>
+                            <th scope="col">Project deadline</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="mp : ${myProjects}" class="product">
+                            <th:block th:each="project : ${allProjects}"
+                                      th:if="${mp.getIdProject()} == ${project.getId()} and ${mp.getIdDocument() == null}">
+                                <td>
+                                    <a th:href="@{'/projects/info/{id}'(id=${project.getId()})}"
+                                       th:text="${project.getTitle()}"></a>
+                                </td>
+                                <td th:text="${project.getDeadline()}"></td>
+                                <td>
+                                <td>
+                                    <form method="post"
+                                          th:action="@{'/files/{idProject}' (idProject=${project.getId()})}"
+                                          encType="multipart/form-data">
+                                        <input type="file" name="files" multiple required/>
+                                        <button class="btn btn-sm btn-success" type="submit"
+                                                style="margin-top: 20px; margin-bottom: 40px">Upload file
+                                        </button>
+                                        <h6>Please upload one (zip) file with maximum size of 30MB </h6>
+
+                                    </form>
+                                </td>
+                                </td>
+                            </th:block>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h4>Submitted projects</h4>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Project title</th>
+                            <th scope="col">Deadline</th>
+                            <th scope="col">File</th>
+                            <th scope="col">Grade</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="mp : ${myProjects}" class="product">
+                            <th:block th:each="doc : ${docs}"
+                                      th:if="${mp.getIdDocument()} == ${doc.getId()} and ${mp.getIdDocument() != null}">
+                                <th:block th:each="project : ${allProjects}"
+                                          th:if="${mp.getIdProject()} == ${project.getId()}">
+                                    <td>
+                                        <a th:href="@{'/projects/info/{id}'(id=${project.getId()})}"
+                                           th:text="${project.getTitle()}"></a>
+                                    </td>
+                                    <td th:text="${project.getDeadline()}"></td>
+                                </th:block>
+                                <td><a th:href="@{'/files/download/{id}' (id=${doc.getId()})}"
+                                       th:text="${doc.getDocName()}"></a></td>
+                                <td th:text="${mp.getGrade()}"></td>
+                            </th:block>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+            </div>
+        </div>
+    </div>
+</div>
